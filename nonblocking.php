@@ -1,6 +1,6 @@
 <?php
 
-function nonBlocking($address, $postParameters)
+function nonBlocking($host, $path, $postParameters)
 {
     $context = stream_context_create([
         'ssl' => [
@@ -9,7 +9,7 @@ function nonBlocking($address, $postParameters)
         ]
     ]);
 
-    $socket = stream_socket_client("ssl://$address:443", $errno, $errstr, 1, STREAM_CLIENT_ASYNC_CONNECT, $context);
+    $socket = stream_socket_client("ssl://$host:443", $errno, $errstr, 1, STREAM_CLIENT_ASYNC_CONNECT, $context);
 
     if (!$socket) {
         return false;
@@ -17,8 +17,8 @@ function nonBlocking($address, $postParameters)
 
     $content = http_build_query($postParameters);
 
-    $out = "POST /socket HTTP/1.1\r\n";
-    $out .= "Host: $address\r\n";
+    $out = "POST /$path HTTP/1.1\r\n";
+    $out .= "Host: $host\r\n";
     $out .= "Content-Type: application/x-www-form-urlencoded\r\n";
     $out .= "Content-Length: " . strlen($content) . "\r\n";
     $out .= "Connection: close\r\n";
