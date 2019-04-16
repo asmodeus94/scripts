@@ -6,7 +6,7 @@ function xmlParsing($filePath, $nodeName)
     if (!$xmlReader->open($filePath)) {
         return false;
     }
-    
+
     while ($xmlReader->read() && $xmlReader->name !== $nodeName) {
     }
 
