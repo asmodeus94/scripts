@@ -1,6 +1,6 @@
 <?php
 
-function nonBlocking($host, $path, $postParameters)
+function nonBlocking($host, $path, $postParameters = [])
 {
     $context = stream_context_create([
         'ssl' => [
