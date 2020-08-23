@@ -51,6 +51,7 @@ function loadBackup(string $filePath, int $numberOfBatchInQuery = 10): bool
 
         $db->commit();
     } catch (\Exception $ex) {
+		echo $ex;
         if ($db->inTransaction()) {
             $db->rollBack();
         }
